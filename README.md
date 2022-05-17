@@ -1,5 +1,18 @@
 # GEOCODING PROJECT
 
+## How to get the code. 
+
+### ssh
+```
+git clone git@github.com:PY-131/geocoding-project.git 
+
+```
+
+### https 
+```
+git clone https://github.com/PY-131/geocoding-project.git
+```
+
 
 ## How To install 
 
