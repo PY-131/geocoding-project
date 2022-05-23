@@ -39,11 +39,11 @@ def get_iss_location(ISS_URL, endpoint="iss-now.json"):
 
 def get_iss_people(ISS_URL, endpoint="astros.json"): 
 
-    people = []
+    people = {}
     response = __run_request(ISS_URL, endpoint) 
 
     if response['message'] == 'success': 
-      people = [person["name"] for person in response["people"]] 
+      people['people'] = [person["name"] for person in response["people"]] 
     
     return people
 

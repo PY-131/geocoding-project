@@ -45,5 +45,16 @@ def iss_people():
   res = get_iss_people(ENV['ISS_URL'])
   return jsonify(res)
 
+
+@server.route("/iss_info")
+def iss_info():
+
+  people = get_iss_people(ENV['ISS_URL'])
+  location = get_iss_location(ENV['ISS_URL'])
+
+  people.update(location)
+  return jsonify(people)
+
+
 if __name__ == '__main__':
     server.run(host=ENV['HOST'],port=ENV['PORT'], debug=True)
