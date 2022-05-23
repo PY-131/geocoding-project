@@ -26,4 +26,6 @@ git clone https://github.com/PY-131/geocoding-project.git
 2. create .env file and put values in there see .env.example for a sample
 
 ## Run script 
-1. python app.py
+1. python app.py 
+
+a new thing
