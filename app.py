@@ -2,17 +2,16 @@ import os
 from dotenv import dotenv_values
 from flask import Flask, jsonify, render_template, request
 server = Flask(__name__)
-from utils import get_coordinates
+from utils import get_coordinates, get_iss_location
 
-ENV = dotenv_values()  
-
+ENV = dotenv_values()
 
 """
-EXERCISE: 
+EXERCISE:
 Turn your program for the cesear cipher (exercise 3 from earlier)
-into a little flask app that takes a string input, and returns the 
-encrypted text to the user 
-""" 
+into a little flask app that takes a string input, and returns the
+encrypted text to the user
+"""
 
 
 @server.route("/", methods=['GET', 'POST'])
@@ -23,7 +22,7 @@ def index():
 
     if request.method == "POST":
 
-      results = {} 
+      results = {}
       results['address'] = request.form["address"]
 
       lat, lon = get_coordinates(results['address'], ENV['URL'], ENV['PRIVATE_TOKEN'])
@@ -31,8 +30,14 @@ def index():
       results['lon'] = lon
 
       return render_template("results.html", **results)
-       
+
     return render_template("index.html")
+
+
+@server.route("/iss_location")
+def iss_location():
+  res = get_iss_location(ENV['ISS_URL'])
+  return jsonify(res)
 
 if __name__ == '__main__':
     server.run(host=ENV['HOST'],port=ENV['PORT'], debug=True)
