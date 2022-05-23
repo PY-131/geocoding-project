@@ -1,5 +1,7 @@
 import os
 from dotenv import dotenv_values
+
+from datetime import datetime as dt
 from flask import Flask, jsonify, render_template, request
 server = Flask(__name__)
 from utils import get_coordinates, get_iss_location, get_iss_people
@@ -55,6 +57,15 @@ def iss_info():
   people.update(location)
   return jsonify(people)
 
+
+@server.route("/iss_info")
+def iss_info():
+
+  people = get_iss_people(ENV['ISS_URL'])
+  location = get_iss_location(ENV['ISS_URL'])
+  people['now'] = dt.now()
+  people.update(location)
+  return jsonify(people)
 
 if __name__ == '__main__':
     server.run(host=ENV['HOST'],port=ENV['PORT'], debug=True)
