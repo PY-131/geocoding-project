@@ -2,7 +2,7 @@ import os
 from dotenv import dotenv_values
 from flask import Flask, jsonify, render_template, request
 server = Flask(__name__)
-from utils import get_coordinates, get_iss_location
+from utils import get_coordinates, get_iss_location, get_iss_people
 
 ENV = dotenv_values()
 
@@ -37,6 +37,12 @@ def index():
 @server.route("/iss_location")
 def iss_location():
   res = get_iss_location(ENV['ISS_URL'])
+  return jsonify(res)
+
+
+@server.route("/iss_people")
+def iss_people():
+  res = get_iss_people(ENV['ISS_URL'])
   return jsonify(res)
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 import requests as rqs
+import os 
 
 def get_coordinates(address, URL, PRIVATE_TOKEN):
     """
@@ -21,14 +22,10 @@ def get_coordinates(address, URL, PRIVATE_TOKEN):
     return lat, lon
 
 
-def get_iss_location(ISS_URL):
-
+def get_iss_location(ISS_URL, endpoint="iss-now.json"):
+    
     res = {}
-    try:
-       response = rqs.get(ISS_URL).json()
-
-    except Exception as e:
-       raise e
+    response = __run_request(ISS_URL, endpoint)
 
     if response['message'] == 'success':
       iss_pos = response['iss_position']
@@ -38,5 +35,33 @@ def get_iss_location(ISS_URL):
       #res['location']
     else:
       res['location'] = 'over water'
-    return res
+    return res 
+
+def get_iss_people(ISS_URL, endpoint="astros.json"): 
+
+    people = []
+    response = __run_request(ISS_URL, endpoint) 
+
+    if response['message'] == 'success': 
+      people = [person["name"] for person in response["people"]] 
+    
+    return people
+
+
+
+def __run_request(url, endpoint):
+
+    URL = os.path.join(url, endpoint)
+
+    res = {}
+    try:
+       response = rqs.get(URL).json()
+
+    except Exception as e:
+       raise e
+
+    return response
+
+
+
 
