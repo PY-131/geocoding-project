@@ -48,15 +48,6 @@ def iss_people():
   return jsonify(res)
 
 
-@server.route("/iss_info")
-def iss_info():
-
-  people = get_iss_people(ENV['ISS_URL'])
-  location = get_iss_location(ENV['ISS_URL'])
-
-  people.update(location)
-  return jsonify(people)
-
 
 @server.route("/iss_info")
 def iss_info():
