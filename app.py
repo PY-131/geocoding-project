@@ -26,8 +26,7 @@ def index():
 
       results = {}
       results['address'] = request.form["address"]
-
-      lat, lon = get_coordinates(results['address'], ENV['URL'], ENV['PRIVATE_TOKEN'])
+      lat, lon = get_coordinates(results['address'], os.getenv('URL'), os.getenv('PRIVATE_TOKEN'))
       results['lat'] = lat
       results['lon'] = lon
 
@@ -38,13 +37,13 @@ def index():
 
 @server.route("/iss_location")
 def iss_location():
-  res = get_iss_location(ENV['ISS_URL'])
+  res = get_iss_location(os.getenv('ISS_URL'))
   return jsonify(res)
 
 
 @server.route("/iss_people")
 def iss_people():
-  res = get_iss_people(ENV['ISS_URL'])
+  res = get_iss_people(os.getenv('ISS_URL'))
   return jsonify(res)
 
 
@@ -52,11 +51,11 @@ def iss_people():
 @server.route("/iss_info")
 def iss_info():
 
-  people = get_iss_people(ENV['ISS_URL'])
-  location = get_iss_location(ENV['ISS_URL'])
+  people = get_iss_people(os.getenv('ISS_URL'))
+  location = get_iss_location(os.getenv('ISS_URL'))
   people['now'] = dt.now()
   people.update(location)
   return jsonify(people)
 
 if __name__ == '__main__':
-    server.run(host=ENV['HOST'],port=ENV['PORT'], debug=True)
+    server.run(host=os.getenv('HOST'),port=os.getenv('PORT'), debug=True)
