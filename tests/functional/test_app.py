@@ -8,10 +8,12 @@ def __parse_json(req):
         raise e
     return data
 
+
 @pytest.mark.index
 def test_index_page_load(client):
     res = client.get('/')
     assert res.status_code == 200
+
 
 @pytest.mark.index
 def test_index_address_post(client):
