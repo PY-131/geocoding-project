@@ -1,5 +1,6 @@
 import requests as rqs
 import os 
+from datetime import datetime
 
 def get_coordinates(address, URL, PRIVATE_TOKEN):
     """
@@ -48,6 +49,8 @@ def get_iss_people(ISS_URL, endpoint="astros.json"):
     return people
 
 
+def get_time_now():
+    return datetime.now()
 
 def __run_request(url, endpoint):
 

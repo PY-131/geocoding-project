@@ -57,3 +57,11 @@ def test_iss_location(client):
     assert res.status_code == 200
     assert 'lat' in data
     assert 'lon' in data
+
+@pytest.mark.misc
+def test_time_now(client):
+
+    res = client.get('/time')
+    data = __parse_json(res)
+    assert res.status_code == 200
+    

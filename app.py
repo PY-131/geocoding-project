@@ -1,13 +1,13 @@
 import os
-from dotenv import dotenv_values
-
+from dotenv import load_dotenv
 from datetime import datetime as dt
 from flask import Flask, jsonify, render_template, request
+from utils import get_coordinates, get_iss_location, get_iss_people, get_time_now
+
+
 server = Flask(__name__)
-from utils import get_coordinates, get_iss_location, get_iss_people
 
-ENV = dotenv_values()
-
+load_dotenv()
 """
 EXERCISE:
 Turn your program for the cesear cipher (exercise 3 from earlier)
@@ -46,7 +46,10 @@ def iss_people():
   res = get_iss_people(os.getenv('ISS_URL'))
   return jsonify(res)
 
-
+@server.route("/time")
+def get_time():
+  res = get_time_now()
+  return jsonify(res)
 
 @server.route("/iss_info")
 def iss_info():
